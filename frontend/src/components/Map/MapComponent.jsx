@@ -68,7 +68,7 @@ const MapComponent = ({ location, mapRef, markerRef }) => {
   }
 
 
-  // ✅ Fetch listings
+  // Fetch listings
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -88,7 +88,7 @@ const MapComponent = ({ location, mapRef, markerRef }) => {
     fetchListings();
   }, []);
 
-  // ✅ Initialize map only once
+  // Initialize map only once
   useEffect(() => {
     if (mapRef.current) return;
 
@@ -126,15 +126,14 @@ const MapComponent = ({ location, mapRef, markerRef }) => {
     }
   }, [location]);
 
-  // ✅ Purple markers for listings
+  // Purple markers for listings
   useEffect(() => {
     if (!mapRef.current || listings.length === 0) return;
 
-    // 1) clear old purple markers
     purpleMarkersRef.current.forEach((m) => m.remove());
     purpleMarkersRef.current = [];
 
-    // 2) filter by distance (in miles) from *location* state
+    // filter by distance (in miles) from *location* state
     const R = 6371;
     const toMiles = (km) => km * 0.621371;
     const getMiles = (lat1, lng1, lat2, lng2) => {
@@ -195,11 +194,6 @@ const MapComponent = ({ location, mapRef, markerRef }) => {
       }
     });
 
-    // update your overlay list
-    // (if you render directly from `listings.map`, instead compute dist inline there using `location`)
-    // If you prefer a state for nearby, keep it:
-    // setNearby(nearby);
-
   }, [listings, location]);
 
   return (
@@ -215,7 +209,7 @@ const MapComponent = ({ location, mapRef, markerRef }) => {
         }}
       />
 
-      {/* ✅ Small overlay panel (non-breaking) */}
+      {/* Small overlay panel (non-breaking) */}
       <Box
         position="absolute"
         top="20px"
